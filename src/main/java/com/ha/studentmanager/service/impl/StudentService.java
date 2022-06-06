@@ -3,6 +3,7 @@ package com.ha.studentmanager.service.impl;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -70,6 +71,16 @@ public class StudentService implements IStudentService {
 	@Override
 	public Boolean existsStudentId(Long id) {
 		return studentRepository.existsById(id);
+	}
+
+	@Override
+	public List<Long> deleteStudent(Long[] ids) {
+		List<Long> results = new ArrayList<Long>();
+		for (Long id : ids) {
+			studentRepository.deleteById(id);
+			results.add(id);
+		}
+		return results;
 	}
 
 }

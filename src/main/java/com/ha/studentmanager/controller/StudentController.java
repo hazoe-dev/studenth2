@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ha.studentmanager.dto.StudentDto;
@@ -51,9 +52,8 @@ public class StudentController {
 	@PostMapping("/student-edit-{id}")
 	public ModelAndView showEdit(@PathVariable Long id, @ModelAttribute StudentDto student) {
 //		ModelAndView mav = new ModelAndView("editStudent");
-		ModelAndView mav = new ModelAndView("redirect:/");
-
 		StudentDto newStudent = studentService.saveStudent(student);
+		ModelAndView mav = new ModelAndView("redirect:/");
 //		mav.addObject("student",newStudent);
 //		mav.addObject("depNames",depNames);
 		return mav ;
@@ -71,4 +71,10 @@ public class StudentController {
 		return new ModelAndView("redirect:/") ;
 	}
 	
+	@PostMapping("/student-delete")
+	public ModelAndView deleteStudent(@RequestParam Long[] ids) {
+		studentService.deleteStudent(ids);
+		ModelAndView mav = new ModelAndView("redirect:/");
+		return mav ;
+	}
 }

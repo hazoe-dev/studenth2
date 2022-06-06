@@ -15,5 +15,7 @@ public interface IStudentService {
 	public void deleteStudent(Long id);
 
 	public Boolean existsStudentId(Long id);
+
+	public List<Long> deleteStudent(Long[] ids);
 	
 }

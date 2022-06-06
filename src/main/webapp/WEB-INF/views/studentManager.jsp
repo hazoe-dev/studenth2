@@ -17,7 +17,7 @@
       <h4 class="bg-primary text-white mb-4 pt-2 pb-2 ps-2 pe-2">Student List (${students.size() })</h4>
       <div class="mb-4">
         <button type="button" class="btn btn-outline-primary" onclick="window.location.href='/student-new'" >New student</button>
-        <button type="button" class="btn btn-outline-secondary"> Delete  </button>
+        <button type="button" class="btn btn-outline-secondary" id="delete-btn"> Delete  </button>
       </div>
       <table class="table table-bordered table-responsive align-middle">
         <thead>
@@ -31,7 +31,7 @@
         </thead>
         <tbody>
           <c:forEach var="student" items="${students}">
-          <tr>
+          <tr id="student-${student.id}">
             <td>
                 <button type="button" class="btn btn-outline-primary" onclick="window.location.href='/student-edit-${student.id}'">Edit student</button>
             </td>
@@ -76,5 +76,35 @@ $(document).ready(function(){
 	let formatBirthday = formatDate(birthday);
 	$("#birthday").text(formatBirthday);
 	console.log(formatBirthday)
+	
+	
+	$("#delete-btn").click(function(){
+		let ids = [];
+		$('input:checkbox:checked').each(function () {
+			ids.push($(this).val());
+		  });
+		let params =[];
+		for (var i in ids){
+			params.push("ids="+ids[i]);
+		}
+		let queryStr = params.join("&");
+		  
+		  $.ajax({ 
+              url: "/deleteStudent?"+queryStr, 
+              type: "DELETE", 
+              success : function(data) {
+                  $.each(data, function( index, value ) {
+                	  $("#student-"+value).css("display","none");
+                	});
+               },
+               error : function(data) {
+                      openAlertDialog("Error", data.message, "Continue", "manage-assets");
+              },
+  			});
+	});
+	
 });
+
+
+
 </script>
