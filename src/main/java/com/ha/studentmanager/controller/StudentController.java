@@ -50,10 +50,12 @@ public class StudentController {
 	
 	@PostMapping("/student-edit-{id}")
 	public ModelAndView showEdit(@PathVariable Long id, @ModelAttribute StudentDto student) {
-		ModelAndView mav = new ModelAndView("editStudent");
+//		ModelAndView mav = new ModelAndView("editStudent");
+		ModelAndView mav = new ModelAndView("redirect:/");
+
 		StudentDto newStudent = studentService.saveStudent(student);
-		mav.addObject("student",newStudent);
-		mav.addObject("depNames",depNames);
+//		mav.addObject("student",newStudent);
+//		mav.addObject("depNames",depNames);
 		return mav ;
 	}
 	

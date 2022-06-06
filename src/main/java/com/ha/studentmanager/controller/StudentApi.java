@@ -19,7 +19,7 @@ public class StudentApi {
 	private IStudentService studentService;
 	
 	@GetMapping("/checkStudent/{id}")
-	public ResponseEntity<Boolean> checkStudentID(@PathVariable String id) {
+	public ResponseEntity<Boolean> checkStudentID(@PathVariable Long id) {
 		return  ResponseEntity.ok((Boolean)studentService.existsStudentId(id));
 	}
 	

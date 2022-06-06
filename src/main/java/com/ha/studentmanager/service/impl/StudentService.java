@@ -52,9 +52,13 @@ public class StudentService implements IStudentService {
 		StudentDto newStudentDto = new StudentDto();
 		BeanUtils.copyProperties(newStudent, newStudentDto);
 		
-		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		String formattedDate = formatter.format(student.getBirthday());
-		newStudentDto.setBirthday(formattedDate);
+		Date birthday = newStudent.getBirthday();
+		if(birthday != null) {
+			DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			String formattedDate = formatter.format(birthday);
+			newStudentDto.setBirthday(formattedDate);
+		}
+		
 		return newStudentDto ;
 	}
 
@@ -64,7 +68,7 @@ public class StudentService implements IStudentService {
 	}
 
 	@Override
-	public Boolean existsStudentId(String id) {
+	public Boolean existsStudentId(Long id) {
 		return studentRepository.existsById(id);
 	}
 

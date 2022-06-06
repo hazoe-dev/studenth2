@@ -14,6 +14,6 @@ public interface IStudentService {
 	
 	public void deleteStudent(Long id);
 
-	public Boolean existsStudentId(String id);
+	public Boolean existsStudentId(Long id);
 	
 }
